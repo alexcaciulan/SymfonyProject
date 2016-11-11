@@ -1,0 +1,19 @@
+<h4><a href="{{ path('admin_user_list') }}" class="pull-right">Users list</a></h4>
+{{ form_start(userForm) }}
+    {{ form_row(userForm.firstName) }}
+    {{ form_row(userForm.lastName) }}
+    {{ form_row(userForm.photo) }}
+
+    {% if photo is defined and photo!=''%}
+        {% set photoPath = asset('uploads/' ~ photo) %}
+    <div style="margin: 20px">
+        <a href="{{ photoPath }}"><img src="{{ photoPath }}" height="200"></a>
+    </div>
+    {% endif %}
+
+    {{ form_row(userForm.email) }}
+    {{ form_row(userForm.roles) }}
+    {# form_row(userForm.plainPassword.first, {'label': 'Password'}) #}
+    {#form_row(userForm.plainPassword.second, {'label': 'Repeat Password'}) #}
+    <button type="submit" class="btn btn-success" formnovalidate>Save</button>
+{{ form_end(userForm) }}

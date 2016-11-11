@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %} Todo List {% endblock %}
+
+{% block body %}
+    <h1>Latest Todos</h1>
+    <a href="{{ path('todo_create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> New</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Todo</th>
+            <th>By</th>
+            <th>Categories</th>
+            <th>Due date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for todo in todos %}
+        <tr>
+            <th scope="row">{{ todo.id }}</th>
+            <td>{{ todo.name }} </td>
+            <td>{{ todo.user.email }}</td>
+            <td>
+                {% if todo.categories|length >= 1 %}
+                   <ul>
+                       {% for category in todo.categories %}
+                          <li>{{ category }}</li>
+                       {% endfor %}
+                   </ul>
+                {% endif %}
+            </td>
+            <td>{{ todo.dueDate|date('F j, Y g:i a') }}</td>
+            <td>
+             <a href="{{ path('todo_details', {'id': todo.id }) }}" class="btn btn-xs btn-default">Details</a>
+             <a href="{{ path('todo_edit', {'id': todo.id}) }}" class="btn btn-xs btn-primary">Edit</a>
+             <a href="{{ path("confirm_delete", {"id" : todo.id}) }}" data-toggle="modal" data-target="#ajax" class="btn btn-xs btn-danger">Delete</a>
+            </td>
+        </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

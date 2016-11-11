@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block title %} My articles {% endblock %}
+
+{% block body %}
+    <h1>My articles</h1>
+    <a href="{{ path('article_create') }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> New</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th width="30%">Description</th>
+            <th>By</th>
+            <th>Created date</th>
+            <th width="10%"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ article.title }} </td>
+                <td width="30%">{{ article.description | truncate(80) }} </td>
+                <td>{{ article.user.email }}</td>
+                <td>{{ article.createdDate|date('F j, Y g:i a') }}</td>
+                <td width="10%">
+                    <a href="{{ path('article_view', {'slug': article.slug}) }}.html" class="btn btn-xs btn-default"><i class="fa fa-eye"></i></a>
+                    <a href="{{ path('article_edit', {'id': article.id}) }}" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> </a>
+                    <a href="{{ path("article_confirm_delete", {"id" : article.id}) }}" data-toggle="modal" data-target="#ajax" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

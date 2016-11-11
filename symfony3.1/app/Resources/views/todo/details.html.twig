@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1>{{ todo.name }}</h1>
+    <ul class="list-group">
+        <li class="list-group-item">Categories:
+            {% if todo.categories|length >= 1 %}
+                <ul>
+                    {% for category in todo.categories %}
+                        <li>{{ category }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+        <li class="list-group-item">Priority: {{ todo.priority }}</li>
+        <li class="list-group-item">Due Date: <strong>{{ todo.dueDate|date('F j, Y g:i a') }}</strong></li>
+        <li class="list-group-item">Description {{ todo.description }}</li>
+        <li class="list-group-item">Created At: {{ todo.createDate|date('F j, Y g:i a') }}</li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h3>Latest Articles</h3><br>
+
+     {% for article in articles %}
+         <div style="font-size: 18px"><a href="{{ path('article_view', {'slug': article.slug}) }}.html">{{ article.title }}</a> </div>
+         <small style="font-style: italic">{{ article.createdDate|date('l, F j, Y') }} by {{ article.user.email }}</small>
+         <p>{{ article.description | truncate(300)}}</p>
+         <hr>
+     {% endfor %}
+
+{% endblock %}

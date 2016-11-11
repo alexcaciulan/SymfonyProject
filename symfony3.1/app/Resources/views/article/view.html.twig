@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ article.title }} {% endblock %}
+
+{% block body %}
+    <h3>{{ article.title }}</h3>
+    <h4 style="font-style: italic">{{ article.createdDate|date('l, F j, Y') }} by {{ article.user.email }}</h4>
+    <br/>
+    <p>{{ article.description | nl2br }}</p>
+{% endblock %}
+
+

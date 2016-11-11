@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block title %} Users list {% endblock %}
+{% block body %}
+    <h1>Admin</h1>
+    <a href="{{ path('admin_user_create') }}" class="btn btn-success">Add new</a>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>
+                    {% if user.photo!='' %}
+                        {% set photoPath = asset('uploads/' ~ user.photo) %}
+                            <a href="{{ photoPath }}"><img src="{{ photoPath }}" height="30"></a>
+                    {% endif %}
+
+                    {{ user.firstName }} {{ user.lastName }}
+
+                </td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {# loop for roles #}
+                    {% for role in user.roles %}
+                        {% if loop.index == 1 %}
+                            {{ role }}
+                        {% else %}
+                            , {{ role }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path("admin_user_edit", {'id': user.id}) }}" class="btn btn-xs btn-primary">Edit</a>
+                    <a href="{{ path("admin_user_confirm_delete", {'id': user.id}) }}" data-target="#ajax" data-toggle="modal" class="btn btn-xs btn-danger">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
